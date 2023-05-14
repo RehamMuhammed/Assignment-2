@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <fieldset>
+    <legend>
+        <h2>Form</h2> 
+    </legend>
+   <form id="form">
+    <input type="text" id="name" name="name" placeholder="Name"> <br><br>
+    <input type="text" id="age" name="age" placeholder="Age"> <br><br>
+    <input type="text" id="id" name="id" placeholder="ID"><br><br>
+    <input type="text" id="gender" name="gender" placeholder="Gender"><br><br>
+    <input type="text" id="email" name="email" placeholder="Email"><br><br>
+    <input type="button" value="Submit" id="btn" 
+    onclick="Submit()">
+    <input type="reset" value="Reset">
+
+   </form>
+   </fieldset>
+   <br>
+<div id="msg"></div>
+   <fieldset>
+    <legend><h2>Data from local Storage</h2></legend>
+    <table border="2" id="table">
+        <tr>
+            <td class=".col">Name</td>
+            <td class=".col">Age</td>
+            <td class=".col">ID</td>
+            <td class=".col">Gender</td>
+            <td class=".col">Email</td>
+            <td class=".col">Action</td>
+        </tr>
+        
+    </table>
+   </fieldset>
+
+</body>
+<script type="text/javascript" src="./script.js">
+    function getData() {
+
+        fetch('http://localhost:5000/person')
+            .then(res => {
+                return res.json();
+            }).then((response) => {
+                var tmpData = "";
+                console.log(response)
+                    ;
+
+            })
+    }
+    getData();
+
+
+</script>
+
+</html>

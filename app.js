@@ -1,0 +1,72 @@
+const express = require('express');
+const connectDB = require('./db');
+const Person = require('./person');
+
+
+const app = express();
+app.use(express.json());
+
+connectDB();
+
+app.get('/persons/:id', async(req , res)=>{
+    try{
+        const person = await Person.findById(req.params.id);
+        if(!person) throw new Error('Name not found');
+        res.json(persons);
+    }
+    catch(error){
+        res.status(500).send(error.message);
+    }
+})
+
+app.post('/persons', async(req , res)=>{
+    try{
+        const{name, age, gender, email} = req.body;
+        const person = new Person({name, age, gender, email});
+        await person.save();
+        res.json({success: true});
+    }
+
+
+    catch(error){
+        res.status(500).send(error.message);
+    }
+})
+
+app.put('/persons/:id', async(req , res)=>{
+    try{
+      const person = await Person.findByIdAndUpdate(req.params.id, req.body, {new: true})
+      if(!person) throw new Error('Name not found');
+      res.json({success: true});
+        
+    }
+
+    
+    catch(error){
+        res.status(500).send(error.message);
+    }
+})
+
+
+app.delete('/persons/:id', async(req , res)=>{
+    try{
+      const person = await Person.findByIdAndDelete(req.params.id)
+      if(!person) throw new Error('Name not found');
+      res.json({success: true});
+        
+    }
+
+    
+    catch(error){
+        res.status(500).send(error.message);
+    }
+})
+
+
+
+
+const port = 5000;
+
+app.listen(port, ()=>{
+    console.log("API server started on port 5000");
+} )
